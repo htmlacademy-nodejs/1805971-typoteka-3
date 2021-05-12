@@ -1,0 +1,26 @@
+{
+  "name": "typoteka",
+  "version": "1.0.0",
+  "description": "Типотека",
+  "main": "./src/service/service.js",
+  "scripts": {
+    "start": "node ./src/service/service.js",
+    "test": "npm run eslint",
+    "eslint": "eslint --ext .js src/"
+  },
+  "repository": {
+    "start": "node ./src/service/service.js",
+    "type": "git",
+    "url": "git+https://github.com/AntonVolkov71/1805971-typoteka-3.git"
+  },
+  "author": "Anton Volkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonVolkov71/1805971-typoteka-3/issues"
+  },
+  "homepage": "https://github.com/AntonVolkov71/1805971-typoteka-3#readme",
+  "devDependencies": {
+    "eslint": "7.26.0",
+    "eslint-config-htmlacademy": "0.6.0"
+  }
+}
