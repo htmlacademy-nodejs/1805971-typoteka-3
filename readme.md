@@ -1,7 +1,7 @@
 # Личный проект «Типотека» [![Build status][travis-image]][travis-url]
 
 * Студент: [Антон Волков](https://up.htmlacademy.ru/nodejs/3/user/1805971).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Куцелай](https://htmlacademy.ru/profile/id32750).
 
 ---
 
