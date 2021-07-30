@@ -3,6 +3,7 @@
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 const path = require(`path`);
+const {nanoid} = require(`nanoid`);
 
 const {
   getRandomInt,
@@ -12,13 +13,16 @@ const {
 
 const {ExitCode} = require(`../../constants`);
 
+const MAX_ID_LENGTH = 6;
+const MAX_COMMENTS = 4;
 const DEFAULT_COUNT = 1;
-const FILE_NAME = `mocks.json`;
 const MAX_DAYS_AGO = 90;
 
+const FILE_NAME = `mocks.json`;
 const FILE_SENTENCES_PATH = `../../data/sentences.txt`;
 const FILE_TITLES_PATH = `../../data/titles.txt`;
 const FILE_CATEGORIES_PATH = `../../data/categories.txt`;
+const FILE_COMMENTS_PATH = `../../data/comments.txt`;
 
 const readContent = async (filePath) => {
   const absolutePath = path.join(__dirname, filePath);
@@ -32,12 +36,23 @@ const readContent = async (filePath) => {
   }
 };
 
-const generateOffers = (count, titles, categories, sentences) => (
+const generateComments = (count, comments) => (
   Array(count).fill({}).map(() => ({
+    id: nanoid(MAX_ID_LENGTH),
+    text: shuffle(comments)
+      .slice(0, getRandomInt(1, 3))
+      .join(` `),
+  }))
+);
+
+const generateArticles = ({count, titles, categories, sentences, comments}) => (
+  Array(count).fill({}).map(() => ({
+    id: nanoid(MAX_ID_LENGTH),
     announce: shuffle(sentences).slice(1, 5).join(` `),
     category: [categories[getRandomInt(0, categories.length - 1)]],
     createdDate: getDateAgo(getRandomInt(0, MAX_DAYS_AGO)),
     title: titles[getRandomInt(0, titles.length - 1)],
+    comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments)
   }))
 );
 
@@ -54,9 +69,10 @@ module.exports = {
     const sentences = await readContent(FILE_SENTENCES_PATH);
     const titles = await readContent(FILE_TITLES_PATH);
     const categories = await readContent(FILE_CATEGORIES_PATH);
+    const comments = await readContent(FILE_COMMENTS_PATH);
 
-    const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
-    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
+    const countArticle = Number.parseInt(count, 10) || DEFAULT_COUNT;
+    const content = JSON.stringify(generateArticles({count: countArticle, titles, categories, sentences, comments}));
 
     try {
       fs.writeFile(FILE_NAME, content);

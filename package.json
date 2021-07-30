@@ -5,6 +5,7 @@
   "main": "./src/service/service.js",
   "scripts": {
     "start": "node ./src/service/service.js --server 3001",
+    "generate": "node ./src/service/service.js --generate 15",
     "server": "nodemon ./src/service/service.js --server",
     "start-front-server": "node ./src/express/index.js",
     "test": "npm run eslint",
@@ -30,6 +31,7 @@
   "dependencies": {
     "chalk": "4.1.1",
     "express": "4.17.1",
+    "nanoid": "3.1.23",
     "pug": "2.0.4"
   }
 }
