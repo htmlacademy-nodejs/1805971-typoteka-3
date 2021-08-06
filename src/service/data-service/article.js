@@ -40,6 +40,7 @@ class ArticleService {
     }
 
     this._articles = this._articles.filter((item) => item.id !== id);
+
     return article;
   }
 

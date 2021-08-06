@@ -27,7 +27,7 @@ module.exports = (app, articleService, commentService) => {
       .json(article);
   });
 
-  route.put(`/:articleId`, [articleExist(articleService), articleValidator], (req, res) => {
+  route.put(`/:articleId`, [articleValidator, articleExist(articleService)], (req, res) => {
     const {articleId} = req.params;
     const article = articleService.update(articleId, req.body);
 
