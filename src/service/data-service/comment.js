@@ -31,8 +31,8 @@ class CommentService {
   create(articleId, {text}) {
     const newComment = Object
       .assign({id: nanoid(MAX_ID_LENGTH), text});
-
     const article = this._articles.find((item) => item.id === articleId);
+
     article.comments.push(newComment);
 
     return newComment;

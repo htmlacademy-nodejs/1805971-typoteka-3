@@ -67,7 +67,6 @@ module.exports = (app, articleService, commentService) => {
 
   route.post(`/:articleId/comments`, [articleExist(articleService), commentValidator], async (req, res) => {
     const {articleId} = req.params;
-
     const comment = await commentService.create(articleId, req.body);
 
     return res.status(HttpCode.CREATED)
@@ -76,7 +75,6 @@ module.exports = (app, articleService, commentService) => {
 
   route.delete(`/:articleId/comments/:commentId`, [articleExist(articleService), commentExist(commentService), commentValidator], async (req, res) => {
     const {articleId, commentId} = req.params;
-
     const comment = await commentService.drop(articleId, commentId);
 
     return res.status(HttpCode.OK)
