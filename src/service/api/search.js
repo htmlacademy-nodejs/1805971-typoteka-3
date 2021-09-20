@@ -20,6 +20,6 @@ module.exports = (app, service) => {
     const searchStatus = searchResults.length > 0 ? HttpCode.OK : HttpCode.NOT_FOUND;
 
     res.status(searchStatus)
-      .json(searchResults);
+        .json(searchResults);
   });
 };

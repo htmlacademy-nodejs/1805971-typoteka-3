@@ -1,0 +1,16 @@
+extends ../layout.pug
+
+block content
+  main
+    section.search-page
+      .search-page__wrapper
+        h1 Поиск
+        .search.search-page__form
+          form(action='/search' method='get')
+            label
+              input(type='text' name='search' placeholder='Что ищем?' value=query)
+            button.search__button.button.button--transparent(type='submit') Найти
+          if(articlesResult )
+            if(articlesResult.length === 0)
+              include ../partials/search-not-found
+            include ../partials/search-result

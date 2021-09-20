@@ -49,7 +49,7 @@ const generateArticles = ({count, titles, categories, sentences, comments}) => (
   Array(count).fill({}).map(() => ({
     id: nanoid(MAX_ID_LENGTH),
     announce: shuffle(sentences).slice(1, 5).join(` `),
-    category: [categories[getRandomInt(0, categories.length - 1)]],
+    categories: [categories[getRandomInt(0, categories.length - 1)]],
     createdDate: getDateAgo(getRandomInt(0, MAX_DAYS_AGO)),
     title: titles[getRandomInt(0, titles.length - 1)],
     comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments)
