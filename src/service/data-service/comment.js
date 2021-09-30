@@ -9,9 +9,9 @@ class CommentService {
     this._articles = articles;
   }
 
-  findAll(articleId) {
+  async findAll(articleId) {
     if (articleId) {
-      const article = this._articles.find((item) => item.id === articleId);
+      const article = await this._articles.find((item) => item.id === articleId);
       const articleComments = article.comments.reduce((acc, item) => {
         acc.push(item.text);
         return acc;
@@ -23,17 +23,17 @@ class CommentService {
     return this._articles.map((item)=> item.comments);
   }
 
-  findOne(articleId, commentId) {
-    const article = this._articles.find((item) => item.id === articleId);
+  async findOne(articleId, commentId) {
+    const article = await this._articles.find((item) => item.id === articleId);
     return article.comments.find((item) => item.id === commentId);
   }
 
-  create(articleId, {text}) {
+  async create(articleId, {text}) {
     const newComment = Object
       .assign({id: nanoid(MAX_ID_LENGTH), text});
     const article = this._articles.find((item) => item.id === articleId);
 
-    article.comments.push(newComment);
+    await article.comments.push(newComment);
 
     return newComment;
   }

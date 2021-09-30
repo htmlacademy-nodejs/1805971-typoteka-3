@@ -10,7 +10,9 @@ const {
 const userArguments = process.argv.slice(USER_ARGV_INDEX);
 const [userCommand] = userArguments;
 
-if (userArguments.length === 0 || !Cli[userCommand]) {
+const isNotExistUserCommand = !Cli[userCommand];
+
+if (userArguments.length === 0 || isNotExistUserCommand) {
   Cli[DEFAULT_COMMAND].run();
   process.exit(ExitCode.success);
 }

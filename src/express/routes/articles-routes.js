@@ -36,7 +36,7 @@ articlesRouter.get(`/:id`, async (req, res) => {
 
 articlesRouter.post(`/add`, upload.single(`avatar`), async (req, res) => {
   const {body} = req;
-  const articleData = createNewArticle(body);
+  const articleData = await createNewArticle(body);
 
   try {
     await api.createArticles(articleData);
@@ -52,7 +52,7 @@ articlesRouter.post(`/add`, upload.single(`avatar`), async (req, res) => {
 articlesRouter.post(`/edit/:id`, upload.single(`avatar`), async (req, res) => {
   const {body} = req;
   const {id} = req.params;
-  const articleData = createNewArticle(body);
+  const articleData = await createNewArticle(body);
 
   try {
     await api.editArticle({id, data: articleData});

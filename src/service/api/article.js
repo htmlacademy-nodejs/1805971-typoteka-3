@@ -20,32 +20,32 @@ module.exports = (app, articleService, commentService) => {
       .json(articles);
   });
 
-  route.post(`/`, articleValidator, (req, res) => {
-    const article = articleService.create(req.body);
+  route.post(`/`, articleValidator, async (req, res) => {
+    const article = await articleService.create(req.body);
 
     return res.status(HttpCode.CREATED)
       .json(article);
   });
 
-  route.put(`/:articleId`, [articleValidator, articleExist(articleService)], (req, res) => {
+  route.put(`/:articleId`, [articleValidator, articleExist(articleService)], async (req, res) => {
     const {articleId} = req.params;
-    const article = articleService.update(articleId, req.body);
+    const article = await articleService.update(articleId, req.body);
 
     return res.status(HttpCode.OK)
       .json(article);
   });
 
-  route.delete(`/:articleId`, articleExist(articleService), (req, res) => {
+  route.delete(`/:articleId`, articleExist(articleService), async (req, res) => {
     const {articleId} = req.params;
-    const article = articleService.drop(articleId);
+    const article = await articleService.drop(articleId);
 
     return res.status(HttpCode.OK)
       .json(article);
   });
 
-  route.get(`/:articleId`, articleExist(articleService), (req, res) => {
+  route.get(`/:articleId`, articleExist(articleService), async (req, res) => {
     const {articleId} = req.params;
-    const article = articleService.findOne(articleId);
+    const article = await articleService.findOne(articleId);
 
     if (!article) {
       return res.status(HttpCode.NOT_FOUND)

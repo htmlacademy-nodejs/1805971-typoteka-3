@@ -10,15 +10,15 @@ class ArticleService {
     this._articles = articles;
   }
 
-  findAll() {
-    return this._articles;
+  async findAll() {
+    return await this._articles;
   }
 
-  findOne(id) {
-    return this._articles.find((item) => item.id === id);
+  async findOne(id) {
+    return await this._articles.find((item) => item.id === id);
   }
 
-  create(article) {
+  async create(article) {
     const newArticle = Object
       .assign({
         id: nanoid(MAX_ID_LENGTH),
@@ -27,13 +27,13 @@ class ArticleService {
       },
       article);
 
-    this._articles.push(newArticle);
+    await this._articles.push(newArticle);
 
     return newArticle;
   }
 
-  drop(id) {
-    const article = this._articles.find((item) => item.id === id);
+  async drop(id) {
+    const article = await this._articles.find((item) => item.id === id);
 
     if (!article) {
       return null;
@@ -44,8 +44,8 @@ class ArticleService {
     return article;
   }
 
-  update(id, article) {
-    const oldArticle = this._articles.find((item) => item.id === id);
+  async update(id, article) {
+    const oldArticle = await this._articles.find((item) => item.id === id);
 
     return Object.assign(oldArticle, article);
   }

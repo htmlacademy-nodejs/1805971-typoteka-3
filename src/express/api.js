@@ -10,12 +10,12 @@ class API {
     });
   }
 
-  getArticles() {
-    return this._load(`/articles`);
+  async getArticles() {
+    return await this._load(`/articles`);
   }
 
-  getArticle(id) {
-    return this._load(`/articles/${id}`);
+  async getArticle(id) {
+    return await this._load(`/articles/${id}`);
   }
 
   search(query) {
