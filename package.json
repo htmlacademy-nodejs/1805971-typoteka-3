@@ -5,10 +5,10 @@
   "main": "./src/service/service.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production LOG_LEVEL=error node ./src/service/service.js --server 3001",
-    "start::debug": "cross-env NODE_ENV=development LOG_LEVEL=error node ./src/service/service.js --server 3001",
+    "start::debug": "cross-env NODE_ENV=development LOG_LEVEL=error nodemon ./src/service/service.js --server 3001",
     "generate": "node ./src/service/service.js --generate 5",
     "server": "cross-env NODE_ENV=development LOG_LEVEL=error nodemon ./src/service/service.js --server",
-    "start-front-server": "nodemon ./src/express/index.js",
+    "start-frontend-server": "nodemon ./src/express/index.js",
     "test": "npm run eslint && npm run jest",
     "jest": "jest --watchAll --coverage ",
     "test::eslint": "npm run eslint",
@@ -35,9 +35,11 @@
     "supertest": "6.1.4"
   },
   "dependencies": {
+    "axios": "0.21.4",
     "chalk": "4.1.1",
     "cross-env": "7.0.3",
     "express": "4.17.1",
+    "multer": "^1.4.3",
     "nanoid": "3.1.23",
     "pino": "6.13.0",
     "pug": "2.0.4"

@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require(`express`);
-
 const path = require(`path`);
 
 const articlesRoutes = require(`./routes/articles-routes`);
@@ -22,4 +21,6 @@ app.set(`view engine`, `pug`);
 
 app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
 
-app.listen(DEFAULT_PORT);
+app.listen(DEFAULT_PORT, ()=>{
+  console.info(`Start frontend server on PORT ${DEFAULT_PORT}`);
+});

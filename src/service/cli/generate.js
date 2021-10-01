@@ -11,8 +11,6 @@ const {
   getDateAgo
 } = require(`../../utils`);
 
-const {ExitCode} = require(`../../constants`);
-
 const MAX_ID_LENGTH = 6;
 const MAX_COMMENTS = 4;
 const DEFAULT_COUNT = 1;
@@ -32,7 +30,16 @@ const readContent = async (filePath) => {
     return content.split(`\n`);
   } catch (err) {
     console.error(chalk.red(err));
-    return [];
+    throw Error(`Failed to read file`);
+  }
+};
+
+const writeJsonFile = async (fileName, content) => {
+  try {
+    await fs.writeFile(fileName, JSON.stringify(content));
+  } catch (err) {
+    console.error(chalk.red(err));
+    throw Error(`Failed to write json file`);
   }
 };
 
@@ -49,7 +56,7 @@ const generateArticles = ({count, titles, categories, sentences, comments}) => (
   Array(count).fill({}).map(() => ({
     id: nanoid(MAX_ID_LENGTH),
     announce: shuffle(sentences).slice(1, 5).join(` `),
-    category: [categories[getRandomInt(0, categories.length - 1)]],
+    categories: [categories[getRandomInt(0, categories.length - 1)]],
     createdDate: getDateAgo(getRandomInt(0, MAX_DAYS_AGO)),
     title: titles[getRandomInt(0, titles.length - 1)],
     comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments)
@@ -60,25 +67,31 @@ module.exports = {
   name: `--generate`,
   async run(args) {
     const [count] = args;
+    const countArticle = Number.parseInt(count, 10) || DEFAULT_COUNT;
 
-    if (count > 1000) {
+    if (countArticle > 1000) {
       console.info(chalk.red(`Не больше 1000 публикаций`));
-      process.exit(ExitCode.invalidArgument);
+      throw Error(`Error: No more than 1000 publications`);
     }
 
-    const sentences = await readContent(FILE_SENTENCES_PATH);
-    const titles = await readContent(FILE_TITLES_PATH);
-    const categories = await readContent(FILE_CATEGORIES_PATH);
-    const comments = await readContent(FILE_COMMENTS_PATH);
+    const [sentences, titles, categories, comments] = await Promise.all([
+      readContent(FILE_SENTENCES_PATH),
+      readContent(FILE_TITLES_PATH),
+      readContent(FILE_CATEGORIES_PATH),
+      readContent(FILE_COMMENTS_PATH)
+    ]);
 
-    const countArticle = Number.parseInt(count, 10) || DEFAULT_COUNT;
-    const content = JSON.stringify(generateArticles({count: countArticle, titles, categories, sentences, comments}));
+    const content = generateArticles({count: countArticle, titles, categories, sentences, comments});
 
     try {
-      fs.writeFile(FILE_NAME, content);
+      await writeJsonFile(FILE_NAME, content);
+
       console.info(chalk.green(`Operation success. File created.`));
     } catch (error) {
-      console.error(chalk.red(`Can't write data to file...`));
+      const errorMesageReadFile = `Can't write data to file...`;
+
+      console.error(chalk.red(errorMesageReadFile));
+      throw Error(errorMesageReadFile);
     }
   }
 };
