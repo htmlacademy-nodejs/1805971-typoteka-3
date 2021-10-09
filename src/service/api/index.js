@@ -2,10 +2,10 @@
 
 const {Router} = require(`express`);
 
-const category = require(`./category`);
-const search = require(`./search`);
-const article = require(`./article`);
-const comment = require(`../api/comment`);
+const category = require(`./category/category`);
+const search = require(`./search/search`);
+const article = require(`./article/article`);
+const comment = require(`./comment/comment`);
 
 const getMockData = require(`../lib/get-mock-data`);
 
