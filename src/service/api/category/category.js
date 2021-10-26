@@ -1,17 +1,17 @@
 'use strict';
 
 const {Router} = require(`express`);
-const {HttpCode} = require(`../../constants`);
+const {HttpCode} = require(`../../../constants`);
 
 const route = new Router();
 
 module.exports = (app, service) => {
-  app.use(`/comments`, route);
+  app.use(`/categories`, route);
 
   route.get(`/`, async (req, res) => {
-    const comments = await service.findAll();
+    const categories = await service.findAll();
 
     res.status(HttpCode.OK)
-    .json(comments);
+      .json(categories);
   });
 };

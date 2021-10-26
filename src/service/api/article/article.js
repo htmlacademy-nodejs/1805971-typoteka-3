@@ -2,11 +2,13 @@
 
 const {Router} = require(`express`);
 
-const {HttpCode} = require(`../../constants`);
-const articleValidator = require(`../middlewares/article-validator`);
-const articleExist = require(`../middlewares/article-exists`);
-const commentValidator = require(`../middlewares/comment-validator`);
-const commentExist = require(`../middlewares/comment-exist`);
+const {HttpCode} = require(`../../../constants`);
+const {
+  articleValidator,
+  articleExist,
+  commentValidator,
+  commentExist
+} = require(`./validators`);
 
 const route = new Router();
 

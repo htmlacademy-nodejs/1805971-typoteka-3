@@ -3,9 +3,9 @@
 const express = require(`express`);
 const request = require(`supertest`);
 
-const category = require(`./category`);
-const DataService = require(`../data-service/category`);
-const {HttpCode} = require(`../../constants`);
+const category = require(`../category`);
+const DataService = require(`../../../data-service/category`);
+const {HttpCode} = require(`../../../../constants`);
 
 const mockData = [
   {
