@@ -44,7 +44,30 @@ WHERE articles.id = 1
   GROUP BY articles.id, users.id
 
 -- Получить список из 5 свежих комментариев (идентификатор комментария, идентификатор публикации, имя и фамилия автора, текст комментария);
+SELECT
+  comments.id,
+  comments.article_id,
+  users.first_name,
+  users.last_name,
+  comments.text
+FROM comments
+  JOIN users ON comments.user_id = users.id
+  ORDER BY comments.created_at DESC
+  LIMIT 5
 
 -- Получить список комментариев для определённой публикации (идентификатор комментария, идентификатор публикации, имя и фамилия автора, текст комментария). Сначала новые комментарии;
+SELECT
+  comments.id,
+  comments.article_id,
+  users.first_name,
+  users.last_name,
+  comments.text
+FROM comments
+  JOIN users ON comments.user_id = users.id
+WHERE comments.article_id = 1
+  ORDER BY comments.created_at DESC
 
 -- Обновить заголовок определённой публикации на «Как я встретил Новый год»;
+UPDATE articles
+SET title = 'Как я встретил Новый год'
+WHERE id = 1
