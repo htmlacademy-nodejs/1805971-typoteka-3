@@ -1,7 +1,7 @@
 'use strict';
 
 const {nanoid} = require(`nanoid`);
-const {getDateAgo} = require(`../../utils`);
+const {getDateAgo} = require(`../../../../utils`);
 
 const MAX_ID_LENGTH = 6;
 
