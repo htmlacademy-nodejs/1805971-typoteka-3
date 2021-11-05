@@ -9,12 +9,10 @@ const comment = require(`./comment/comment`);
 
 const getMockData = require(`../lib/get-mock-data`);
 
-const {
-  CategoryService,
-  SearchService,
-  ArticleService,
-  CommentService,
-} = require(`../data-service`);
+const ArticleService = require(`./article/entity/article`);
+const CategoryService = require(`./category/entity/category`);
+const CommentService = require(`./comment/entity/comment`);
+const SearchService = require(`./search/entity/search`);
 
 const app = new Router();
 
