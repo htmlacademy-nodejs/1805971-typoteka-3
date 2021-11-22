@@ -23,3 +23,6 @@ src/service/cli/dist
 *.log
 
 coverage
+
+# Файл с переменными окружения
+.env
