@@ -21,15 +21,14 @@ articlesRouter.get(`/category/:id`, (req, res) => res.render(`articles/articles-
 
 articlesRouter.get(`/edit/:id`, async (req, res) => {
   const {id} = req.params;
-  const article = await api.getArticle(id);
-  const categories = await api.getCategories();
+  const article = await api.getArticle({id});
 
-  res.render(`articles/article-edit`, {article, categories});
+  res.render(`articles/article-edit`, {article});
 });
 
 articlesRouter.get(`/:id`, async (req, res) => {
   const {id} = req.params;
-  const article = await api.getArticle(id);
+  const article = await api.getArticle({id, withComments: true});
 
   res.render(`articles/post`, {article});
 });

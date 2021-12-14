@@ -20,7 +20,7 @@ block content
               ul.preview__breadcrumbs
                 each category in article.categories
                   li.preview__breadcrumbs-item
-                      a.preview__breadcrumbs-link(href='#') #{category}
+                      a.preview__breadcrumbs-link(href='#') #{category.name}
               .preview__background
                  +insertArticleImage(article)
               time.preview__time(datetime=article.createdDate) #{article.createdDate}
@@ -31,7 +31,7 @@ block content
               a.preview__comment(href='#')
                 | Комментарии
                 span.preview__cloud
-                b.preview__comment-count #{article.comments.length}
+                //- b.preview__comment-count #{article.comments.length}
         .preview__toggle-wrapper
           ul.preview__pagination.pagination
             li
