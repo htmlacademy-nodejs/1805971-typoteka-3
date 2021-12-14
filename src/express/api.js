@@ -10,20 +10,20 @@ class API {
     });
   }
 
-  async getArticles() {
-    return await this._load(`/articles`);
+  async getArticles({withComments} = {}) {
+    return await this._load(`/articles`, {params: {withComments}});
   }
 
-  async getArticle(id) {
-    return await this._load(`/articles/${id}`);
+  async getArticle({id, withComments}) {
+    return await this._load(`/articles/${id}`, {params: {withComments}});
   }
 
   search(query) {
     return this._load(`/search`, {params: {query}});
   }
 
-  async getCategories() {
-    return this._load(`/categories`);
+  async getCategories(withCount) {
+    return this._load(`/categories`, {params: {withCount}});
   }
 
   async getComment() {
